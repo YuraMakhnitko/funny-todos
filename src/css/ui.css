@@ -1,0 +1,91 @@
+.todo__button-box {
+  display: flex;
+  gap: 5px;
+  margin: 0 8px;
+}
+
+.todo__button-add {
+  margin: 1px 8px;
+  background-color: transparent;
+  border: unset;
+  color: rgba(97, 218, 251, 0.477);
+  transition: 0.3s ease 0s;
+  cursor: pointer;
+}
+
+.todo__button-add:hover {
+  color: #61dafb;
+}
+.todo__button-add:disabled {
+  color: #8d8e8fef;
+  cursor: unset;
+}
+
+.todo__button-done {
+  margin: 1px;
+  background-color: transparent;
+  border: unset;
+  color: rgba(97, 218, 251, 0.477);
+  transition: 0.3s ease 0s;
+  cursor: pointer;
+}
+
+.todo__button-done:hover {
+  color: #61dafb;
+}
+
+.todo__button-delete {
+  margin: 1px;
+  background-color: transparent;
+  border: unset;
+  color: rgba(255, 0, 0, 0.7);
+  transition: 0.3s ease 0s;
+  cursor: pointer;
+}
+.todo__button-delete:hover {
+  color: rgba(255, 0, 0, 1);
+}
+
+.todo__button-submit {
+  margin-top: 10px;
+  padding: 10px 20px;
+  /* background-color: transparent; */
+  color: rgba(97, 218, 251, 1);
+  transition: 0.3s ease 0s;
+  opacity: 0;
+  cursor: pointer;
+  background-color: rgba(8, 80, 100, 0.5);
+  border: 1px solid rgba(97, 218, 251, 0.1);
+  border-radius: 6px;
+  font-size: 15px;
+  text-transform: uppercase;
+  max-width: 360px;
+  animation: bottom-to-top 0.3s ease;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}
+
+.todo__button-submit:hover {
+  /* color: rgb(198, 243, 255); */
+  color: #fff;
+  background-color: rgba(8, 80, 100, 0.8);
+}
+
+.todo__button-logout {
+  margin-top: 10px;
+  padding: 10px 20px;
+  /* background-color: transparent; */
+  color: rgba(97, 218, 251, 1);
+  transition: 0.3s ease 0s;
+  opacity: 0;
+  cursor: pointer;
+  background-color: rgba(8, 80, 100, 0.5);
+  border: 1px solid rgba(97, 218, 251, 0.1);
+  border-radius: 6px;
+  font-size: 15px;
+  text-transform: uppercase;
+  max-width: 360px;
+  animation: bottom-to-top 0.3s ease;
+  animation-fill-mode: forwards;
+  animation-delay: 0.7s;
+}

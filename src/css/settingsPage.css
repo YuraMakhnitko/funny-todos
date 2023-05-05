@@ -1,0 +1,19 @@
+.todo-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.todo-settings__text {
+  color: rgba(97, 218, 251, 1);
+}
+.todo-settings__text span {
+  color: #fff;
+  letter-spacing: 1.5px;
+}
+
+.todo-settings__language-box {
+}
+
+.todo-settings__label {
+}
