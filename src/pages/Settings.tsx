@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Slider from "@mui/material/Slider";
-import VolumeDown from "@mui/icons-material/VolumeDown";
-import VolumeUp from "@mui/icons-material/VolumeUp";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Slider from '@mui/material/Slider';
+import VolumeDown from '@mui/icons-material/VolumeDown';
+import VolumeUp from '@mui/icons-material/VolumeUp';
 
 export const Settings: React.FC = () => {
   const [value, setValue] = React.useState<number>(30);
@@ -13,15 +13,21 @@ export const Settings: React.FC = () => {
     setValue(newValue as number);
   };
 
+  const isAuth: Boolean = false;
+
   return (
     <div className="todo-settings">
-      <p className="todo-settings__text">
-        User Name: <span>Rikel</span>
-      </p>
+      {isAuth && (
+        <p className="todo-settings__text">
+          User Name: <span>Rikel</span>
+        </p>
+      )}
       <div className="todo-settings__devider"></div>
-      <p className="todo-settings__text">
-        User Email: <span>Rikel@rik.rik</span>
-      </p>
+      {isAuth && (
+        <p className="todo-settings__text">
+          User Email: <span>Rikel@rik.rik</span>
+        </p>
+      )}
       <div className="todo-settings__devider"></div>
 
       <div className="todo-settings__language-box">
@@ -44,7 +50,7 @@ export const Settings: React.FC = () => {
               aria-label="Volume"
               value={value}
               onChange={handleChange}
-              sx={{ color: "rgba(97, 218, 251, 1)" }}
+              sx={{ color: 'rgba(97, 218, 251, 1)' }}
             />
             <VolumeUp sx={{ opacity: 0.7 }} />
           </Stack>
@@ -52,7 +58,7 @@ export const Settings: React.FC = () => {
       </div>
       <div className="todo-settings__devider"></div>
 
-      <button className="todo__button-logout">Logout</button>
+      {isAuth && <button className="todo__button-logout">Logout</button>}
     </div>
   );
 };
