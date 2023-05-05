@@ -44,8 +44,6 @@ export const Settings: React.FC = () => {
               aria-label="Volume"
               value={value}
               onChange={handleChange}
-              // sx={{ opacity: 0.7 }}
-              // sx={{ color: "rgba(8, 80, 100, 1)" }}
               sx={{ color: "rgba(97, 218, 251, 1)" }}
             />
             <VolumeUp sx={{ opacity: 0.7 }} />
