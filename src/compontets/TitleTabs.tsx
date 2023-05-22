@@ -1,9 +1,9 @@
-import * as React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -17,23 +17,26 @@ const StyledTabs = styled((props: StyledTabsProps) => (
     TabIndicatorProps={{ children: <span className="MuiTabs-indicatorSpan" /> }}
   />
 ))({
-  '& .css-heg063-MuiTabs-flexContainer': {
-    justifyContent: 'center',
+  "& .css-heg063-MuiTabs-flexContainer": {
+    // justifyContent: "center",
+    justifyContent: "space-between",
+    // maxWidth: "500px",
+    // justufySelf: "center",
   },
-  '& .MuiTabs-indicator': {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
+  "& .MuiTabs-indicator": {
+    display: "flex",
+    justifyContent: "center",
+    backgroundColor: "transparent",
   },
-  '& .MuiTabs-indicatorSpan': {
+  "& .MuiTabs-indicatorSpan": {
     maxWidth: 40,
-    width: '100%',
-    backgroundColor: '#61dafb',
+    width: "100%",
+    backgroundColor: "#61dafb",
     // fontSize: 16,
   },
-  '& .css-1pbqk26-MuiButtonBase-root-MuiTab-root.Mui-selected': {
-    transform: 'scale(1.01)',
-    transition: '0.1s  ease',
+  "& .css-1pbqk26-MuiButtonBase-root-MuiTab-root.Mui-selected": {
+    transform: "scale(1.01)",
+    transition: "0.1s  ease",
   },
 });
 
@@ -44,16 +47,16 @@ interface StyledTabProps {
 const StyledTab = styled((props: StyledTabProps) => (
   <Tab disableRipple {...props} />
 ))(({ theme }) => ({
-  textTransform: 'none',
+  textTransform: "none",
   fontWeight: theme.typography.fontWeightRegular,
   fontSize: theme.typography.pxToRem(15),
   marginRight: theme.spacing(1),
-  color: '#61dafb',
-  '&.Mui-selected': {
-    color: '#fff',
+  color: "#61dafb",
+  "&.Mui-selected": {
+    color: "#fff",
   },
-  '&.Mui-focusVisible': {
-    backgroundColor: 'rgba(100, 95, 228, 0.32)',
+  "&.Mui-focusVisible": {
+    backgroundColor: "rgba(100, 95, 228, 0.32)",
   },
 }));
 
@@ -67,16 +70,16 @@ export function TitleTabs() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     const page = event.currentTarget.innerHTML.toLowerCase();
     setValue(newValue);
-    if (page === 'home') {
-      navigate('/');
+    if (page === "home") {
+      navigate("/");
       return;
     }
     navigate(page);
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ bgcolor: 'transparent' }}>
+    <Box sx={{ width: "100%" }}>
+      <Box sx={{ bgcolor: "transparent" }}>
         <StyledTabs
           value={value}
           onChange={handleChange}

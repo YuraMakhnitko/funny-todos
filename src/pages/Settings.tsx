@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import Slider from '@mui/material/Slider';
-import VolumeDown from '@mui/icons-material/VolumeDown';
-import VolumeUp from '@mui/icons-material/VolumeUp';
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Slider from "@mui/material/Slider";
+import VolumeDown from "@mui/icons-material/VolumeDown";
+import VolumeUp from "@mui/icons-material/VolumeUp";
 
 export const Settings: React.FC = () => {
   const [value, setValue] = React.useState<number>(30);
@@ -50,7 +50,7 @@ export const Settings: React.FC = () => {
               aria-label="Volume"
               value={value}
               onChange={handleChange}
-              sx={{ color: 'rgba(97, 218, 251, 1)' }}
+              sx={{ color: "rgba(97, 218, 251, 1)" }}
             />
             <VolumeUp sx={{ opacity: 0.7 }} />
           </Stack>
