@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -18,10 +18,7 @@ const StyledTabs = styled((props: StyledTabsProps) => (
   />
 ))({
   "& .css-heg063-MuiTabs-flexContainer": {
-    // justifyContent: "center",
     justifyContent: "space-between",
-    // maxWidth: "500px",
-    // justufySelf: "center",
   },
   "& .MuiTabs-indicator": {
     display: "flex",
@@ -32,7 +29,6 @@ const StyledTabs = styled((props: StyledTabsProps) => (
     maxWidth: 40,
     width: "100%",
     backgroundColor: "#61dafb",
-    // fontSize: 16,
   },
   "& .css-1pbqk26-MuiButtonBase-root-MuiTab-root.Mui-selected": {
     transform: "scale(1.01)",
@@ -60,7 +56,7 @@ const StyledTab = styled((props: StyledTabProps) => (
   },
 }));
 
-export function TitleTabs() {
+export const TitleTabs = (): JSX.Element => {
   const navigate = useNavigate();
 
   const [value, setValue] = React.useState(0);
@@ -87,14 +83,11 @@ export function TitleTabs() {
         >
           <StyledTab label="Home" />
           {!isAuth && <StyledTab label="Login" />}
-          {/* <StyledTab label="Login" /> */}
           {!isAuth && <StyledTab label="Register" />}
           <StyledTab label="Settings" />
-
-          {/* <StyledTab label="Register" /> */}
         </StyledTabs>
         <Box sx={{ p: 2 }} />
       </Box>
     </Box>
   );
-}
+};

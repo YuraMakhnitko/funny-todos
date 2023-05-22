@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { UserSubmitForm } from "../settings/types";
 import { LoginValidationSchema } from "../settings/validations";
 
-export const Login: React.FC = () => {
+export const Login: React.FC = (): JSX.Element => {
   const {
     register,
     handleSubmit,

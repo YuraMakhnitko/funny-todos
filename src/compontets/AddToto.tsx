@@ -3,18 +3,22 @@ import { MdAssignmentAdd } from "react-icons/md";
 
 import useSound from "use-sound";
 import { sounds } from "../settings/sounds";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/lists/slice";
 
-interface TodoAdd {
-  onClickAddTodo(value: string): void;
-}
-// import { Todo } from "../settings/types";
+import type { Todo } from "../settings/types";
 
-export const AddTodo: React.FC<TodoAdd> = ({ onClickAddTodo }) => {
+export const AddTodo: React.FC = (): JSX.Element => {
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState<string>("");
   const [playAddTodo] = useSound(sounds.addTodo);
 
   const addTodoHandler = (): void => {
-    onClickAddTodo(inputValue);
+    const todoItem = {
+      todoText: inputValue,
+      completed: false,
+    } as Todo;
+    dispatch(addTodo(todoItem));
     playAddTodo();
     setInputValue("");
   };

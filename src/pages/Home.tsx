@@ -1,85 +1,28 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import useSound from "use-sound";
-
-import { OneTodo } from "../compontets/OneTodo";
-import { AddTodo } from "../compontets/AddToto";
-
-import { Todo } from "../settings/types";
-
 import { sounds } from "../settings/sounds";
 
-export const Home: React.FC = () => {
-  const [listTodo, setListTodo] = useState<Todo[]>([]);
-  const [completedList, setCompletedList] = useState<Todo[]>([]);
-  const [transferTodo, setTransferTodo] = useState<Todo>();
+import { OneTodo, AddTodo } from "../compontets/index";
 
-  const [completedTodoPlay] = useSound(sounds.comlete);
+import type { Todo } from "../settings/types";
+import type { RootState } from "../redux/store";
+import { comleteOneTodo } from "../redux/lists/slice";
+
+export const Home: React.FC = (): JSX.Element => {
   const [unCompletedTodoPlay] = useSound(sounds.unComplete);
-  const [removeTodoSound] = useSound(sounds.remove);
+  const [completedTodoPlay] = useSound(sounds.comlete);
 
-  const handleAddTodo = (todoValue: string): void => {
-    const todoItem = {
-      todoText: todoValue,
-      completed: false,
-    } as Todo;
+  const dispatch = useDispatch();
 
-    const newList = [...listTodo, todoItem];
-    setListTodo(newList);
-  };
+  const { todosList, todosListCompleted } = useSelector(
+    (state: RootState) => state.listsTodos
+  );
 
-  const handleRemoveTodo = (num: number, isCompleted: boolean): void => {
-    if (!isCompleted) {
-      const filteredList = listTodo.filter((_, ind) => {
-        return ind !== num;
-      });
+  console.log(todosList, "todosList");
+  console.log(todosListCompleted, "todosListCompleted");
 
-      setListTodo(filteredList);
-      removeTodoSound();
-    }
-    if (isCompleted) {
-      const filteredList = completedList.filter((_, ind) => {
-        return ind !== num;
-      });
-
-      setCompletedList(filteredList);
-      removeTodoSound();
-    }
-  };
-
-  const handleCompeteTodo = (ind: number, isCompleted: boolean): void => {
-    if (isCompleted) {
-      const findCompletedTodo = listTodo.find((_, index) => {
-        return index === ind;
-      });
-
-      if (findCompletedTodo) {
-        findCompletedTodo.completed = isCompleted;
-        setCompletedList([...completedList, findCompletedTodo]);
-
-        setListTodo(
-          listTodo.filter((todo) => {
-            return !todo.completed;
-          })
-        );
-      }
-      completedTodoPlay();
-    }
-    if (!isCompleted) {
-      const findActiveTodo = completedList.find((_, index) => {
-        return index === ind;
-      });
-      if (findActiveTodo) {
-        findActiveTodo.completed = isCompleted;
-        setListTodo([...listTodo, findActiveTodo]);
-        setCompletedList(
-          completedList.filter((todo) => {
-            return todo.completed;
-          })
-        );
-      }
-      unCompletedTodoPlay();
-    }
-  };
+  const [transferTodo, setTransferTodo] = useState<Todo>();
 
   const onDragStartHandler = (
     event: React.DragEvent<HTMLDivElement>,
@@ -94,7 +37,9 @@ export const Home: React.FC = () => {
   const dropHandler = (event: React.DragEvent<HTMLDivElement>): void => {
     event.preventDefault();
     const data = JSON.parse(event.dataTransfer.getData("text")) as Todo;
-    handleCompeteTodo(data.index, !data.completed);
+    data.completed = !data.completed;
+    dispatch(comleteOneTodo(data));
+    data.completed ? completedTodoPlay() : unCompletedTodoPlay();
   };
 
   const allowDrop = (event: React.DragEvent<HTMLDivElement>): void => {
@@ -103,35 +48,33 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <AddTodo onClickAddTodo={handleAddTodo} />
+      <AddTodo />
 
       <div
         className="todo__items-active"
         onDrop={dropHandler}
         onDragOver={transferTodo?.completed ? allowDrop : undefined}
       >
-        {listTodo.length > 0 && (
+        {todosList.length > 0 && (
           <>
             <h4 className="todo__sub-title">
-              {`Your have ${listTodo.length} active TODO${
-                listTodo.length > 1 ? "s" : ""
+              {`Your have ${todosList.length} active TODO${
+                todosList.length > 1 ? "s" : ""
               }!`}
             </h4>
-            {listTodo.map((todo: Todo, index: number) => {
+            {todosList.map((todo: Todo, index: number) => {
               return (
                 <OneTodo
                   {...todo}
                   key={index}
                   index={index}
                   onDragStart={onDragStartHandler}
-                  onClickRemove={handleRemoveTodo}
-                  onClickComplete={handleCompeteTodo}
                 />
               );
             })}
           </>
         )}
-        {listTodo.length === 0 && (
+        {todosList.length === 0 && (
           <h4 className="todo__sub-title">Your list of TODOs is empty!</h4>
         )}
       </div>
@@ -140,20 +83,20 @@ export const Home: React.FC = () => {
         onDrop={dropHandler}
         onDragOver={transferTodo?.completed ? undefined : allowDrop}
       >
-        {completedList.length === 0 && listTodo.length > 0 && (
+        {todosListCompleted.length === 0 && todosList.length > 0 && (
           <h4 className="todo__sub-title">
             Drag TOTO here to mark it as Completed
           </h4>
         )}
-        {completedList.length > 0 && (
+        {todosListCompleted.length > 0 && (
           <>
             <h4 className="todo__sub-title">
-              {`Completed ${completedList.length} TODO${
-                completedList.length > 1 ? "s" : ""
+              {`Completed ${todosListCompleted.length} TODO${
+                todosListCompleted.length > 1 ? "s" : ""
               }`}
             </h4>
 
-            {completedList
+            {todosListCompleted
               .map((todo, index) => {
                 return (
                   <OneTodo
@@ -161,8 +104,6 @@ export const Home: React.FC = () => {
                     key={index}
                     index={index}
                     onDragStart={onDragStartHandler}
-                    onClickRemove={handleRemoveTodo}
-                    onClickComplete={handleCompeteTodo}
                   />
                 );
               })
