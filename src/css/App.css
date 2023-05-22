@@ -1,5 +1,5 @@
-@import "./css/register.css";
-@import "./css/settingsPage.css";
+@import "./register.css";
+@import "./settingsPage.css";
 
 .App {
   text-align: center;

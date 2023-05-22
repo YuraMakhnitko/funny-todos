@@ -1,8 +1,8 @@
 import { useState } from "react";
 import useSound from "use-sound";
 
-import OneTodo from "../compontets/OneTodo";
-import AddTodo from "../compontets/AddToto";
+import { OneTodo } from "../compontets/OneTodo";
+import { AddTodo } from "../compontets/AddToto";
 
 import { Todo } from "../settings/types";
 

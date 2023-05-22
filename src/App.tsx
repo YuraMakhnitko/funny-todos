@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 
-import "./App.css";
+import "./css/App.css";
 
 import { Home } from "./pages/Home";
 import { Register } from "./pages/Register";

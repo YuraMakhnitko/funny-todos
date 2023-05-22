@@ -5,7 +5,7 @@ import { MdLibraryAddCheck, MdOutlineLibraryAddCheck } from "react-icons/md";
 
 import { Todo } from "../settings/types";
 
-const OneTodo: React.FC<Todo> = ({
+export const OneTodo: React.FC<Todo> = ({
   todoText,
   completed,
   onClickRemove,
@@ -68,5 +68,3 @@ const OneTodo: React.FC<Todo> = ({
     </div>
   );
 };
-
-export default OneTodo;

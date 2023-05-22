@@ -9,7 +9,7 @@ interface TodoAdd {
 }
 // import { Todo } from "../settings/types";
 
-const AddTodo: React.FC<TodoAdd> = ({ onClickAddTodo }) => {
+export const AddTodo: React.FC<TodoAdd> = ({ onClickAddTodo }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [playAddTodo] = useSound(sounds.addTodo);
 
@@ -41,5 +41,3 @@ const AddTodo: React.FC<TodoAdd> = ({ onClickAddTodo }) => {
     </div>
   );
 };
-
-export default AddTodo;
