@@ -5,6 +5,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
+import { Pages } from "../pages/types";
+
 interface StyledTabsProps {
   children?: React.ReactNode;
   value: number;
@@ -66,7 +68,7 @@ export const TitleTabs = (): JSX.Element => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     const page = event.currentTarget.innerHTML.toLowerCase();
     setValue(newValue);
-    if (page === "home") {
+    if (page === Pages.home) {
       navigate("/");
       return;
     }
