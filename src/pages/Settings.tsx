@@ -17,7 +17,7 @@ export const Settings: React.FC = (): JSX.Element => {
   const { soundsVolume, language } = useSelector(
     (state: RootState) => state.settings
   );
-  const [alignment, setAlignment] = useState("en");
+  const [alignment, setAlignment] = useState(language);
   const dispatch = useDispatch();
 
   // console.log(language, "language");
@@ -31,7 +31,7 @@ export const Settings: React.FC = (): JSX.Element => {
     event: React.MouseEvent<HTMLElement>,
     newAlignment: string
   ) => {
-    // console.log(newAlignment, "handleChangeLang");
+    console.log(newAlignment, "handleChangeLang");
     setAlignment(newAlignment);
     dispatch(setLanguage(newAlignment));
   };
