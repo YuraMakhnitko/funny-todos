@@ -6,8 +6,10 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { MdLibraryAddCheck, MdOutlineLibraryAddCheck } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { removeTodo, comleteOneTodo } from "../redux/lists/slice";
+import { useSelector } from "react-redux";
 
 import type { Todo } from "../settings/types";
+import { RootState } from "../redux/store";
 
 export const OneTodo: React.FC<Todo> = ({
   todoText,
@@ -25,9 +27,12 @@ export const OneTodo: React.FC<Todo> = ({
   const todoStyleRemove: string = "todo__item-remove";
   const [todoAnim, setTodoAnim] = useState<boolean>(false);
 
-  const [completedTodoPlay] = useSound(sounds.comlete);
-  const [unCompletedTodoPlay] = useSound(sounds.unComplete);
-  const [removeTodoSound] = useSound(sounds.remove);
+  const { volume } = useSelector((state: RootState) => state.sounds);
+  console.log(volume);
+
+  const [completedTodoPlay] = useSound(sounds.comlete, { volume });
+  const [unCompletedTodoPlay] = useSound(sounds.unComplete, { volume });
+  const [removeTodoSound] = useSound(sounds.remove, { volume });
 
   const removeTodoHandler = (): void => {
     if (window.confirm("Are you sure you want to delete this TODO?")) {

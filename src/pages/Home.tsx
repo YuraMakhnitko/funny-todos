@@ -10,8 +10,9 @@ import type { RootState } from "../redux/store";
 import { comleteOneTodo } from "../redux/lists/slice";
 
 export const Home: React.FC = (): JSX.Element => {
-  const [unCompletedTodoPlay] = useSound(sounds.unComplete);
-  const [completedTodoPlay] = useSound(sounds.comlete);
+  const { volume } = useSelector((state: RootState) => state.sounds);
+  const [unCompletedTodoPlay] = useSound(sounds.unComplete, { volume });
+  const [completedTodoPlay] = useSound(sounds.comlete, { volume });
 
   const dispatch = useDispatch();
 
