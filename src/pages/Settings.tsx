@@ -1,27 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 import VolumeDown from "@mui/icons-material/VolumeDown";
 import VolumeUp from "@mui/icons-material/VolumeUp";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
 import { useDispatch, useSelector } from "react-redux";
-import { setVolume } from "../redux/sounds/slice";
+import { setVolume, setLanguage } from "../redux/settings/slice";
 import { RootState } from "../redux/store";
+import { Language } from "../redux/types";
 
 export const Settings: React.FC = (): JSX.Element => {
-  // const [value, setValue] = React.useState<number>(30);
-  const { volume } = useSelector((state: RootState) => state.sounds);
+  const { soundsVolume, language } = useSelector(
+    (state: RootState) => state.settings
+  );
+  const [alignment, setAlignment] = useState("en");
   const dispatch = useDispatch();
-  console.log(volume, "volume");
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    // console.log(newValue);
-    // setValue(newValue as number);
+  // console.log(language, "language");
+
+  const handleChangeVolume = (event: Event, newValue: number | number[]) => {
     const volumeValue = (newValue as number) / 100;
     dispatch(setVolume(volumeValue));
-    // console.log(volume);
-    // const vulume: number = value /100
+  };
+
+  const handleChangeLanguage = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string
+  ) => {
+    // console.log(newAlignment, "handleChangeLang");
+    setAlignment(newAlignment);
+    dispatch(setLanguage(newAlignment));
   };
 
   const isAuth: Boolean = false;
@@ -43,24 +55,49 @@ export const Settings: React.FC = (): JSX.Element => {
 
       <div className="todo-settings__language-box">
         <label htmlFor="" className="todo-settings__label">
-          Language:
+          {language === Language.en ? "Language" : ""}
+          {language === Language.ua ? "Мова:" : ""}
         </label>
-        <input type="radio" />
-        <input type="radio" />
+        <ToggleButtonGroup
+          color="primary"
+          value={alignment}
+          exclusive
+          onChange={handleChangeLanguage}
+          aria-label="Platform"
+          sx={{
+            "& .css-1fdqhxf-MuiButtonBase-root-MuiToggleButton-root.Mui-selected":
+              {
+                color: "#fff",
+              },
+          }}
+        >
+          <ToggleButton value="en" sx={{ color: "#61dafb" }}>
+            En
+          </ToggleButton>
+          <ToggleButton value="ua" sx={{ color: "#61dafb" }}>
+            Ua
+          </ToggleButton>
+        </ToggleButtonGroup>
       </div>
       <div className="todo-settings__devider"></div>
 
       <div className="todo-settings__sounds-box">
         <label htmlFor="" className="todo-settings__label">
-          Sounds:
+          {language === Language.en ? "Sounds:" : ""}
+          {language === Language.ua ? "Гучність:" : ""}
         </label>
-        <Box sx={{ width: 200 }}>
-          <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+        <Box sx={{ width: "100%" }}>
+          <Stack
+            spacing={2}
+            direction="row"
+            sx={{ mb: 1, marginBottom: 0 }}
+            alignItems="center"
+          >
             <VolumeDown sx={{ opacity: 0.7 }} />
             <Slider
               aria-label="Volume"
-              value={volume * 100}
-              onChange={handleChange}
+              value={soundsVolume * 100}
+              onChange={handleChangeVolume}
               sx={{ color: "rgba(97, 218, 251, 1)" }}
             />
             <VolumeUp sx={{ opacity: 0.7 }} />

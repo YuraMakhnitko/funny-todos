@@ -1,11 +1,13 @@
 import * as React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 
-import { Pages } from "../pages/types";
+import { settingsContentText } from "../pages/languageSettings";
 
 interface StyledTabsProps {
   children?: React.ReactNode;
@@ -57,22 +59,37 @@ const StyledTab = styled((props: StyledTabProps) => (
     backgroundColor: "rgba(100, 95, 228, 0.32)",
   },
 }));
-
 export const TitleTabs = (): JSX.Element => {
-  const navigate = useNavigate();
-
+  const { language } = useSelector((state: RootState) => state.settings);
   const [value, setValue] = React.useState(0);
+  const [changedLanguage, setChangedLanguage] = React.useState(
+    settingsContentText.en
+  );
+
+  React.useEffect(() => {
+    // console.log(language, "language");
+    if (language === "en") {
+      setChangedLanguage(settingsContentText.en);
+      // console.log(language, "language");
+    }
+    if (language === "ua") {
+      setChangedLanguage(settingsContentText.ua);
+      // console.log(language, "language");
+    }
+  }, [language, value]);
+
+  // console.log(changedLanguage, "changedLanguage");
+
+  const pages: string[] = ["/", "/login", "/register", "/settings"];
+
+  const navigate = useNavigate();
 
   const isAuth: Boolean = false;
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    const page = event.currentTarget.innerHTML.toLowerCase();
+    navigate(pages[newValue]);
     setValue(newValue);
-    if (page === Pages.home) {
-      navigate("/");
-      return;
-    }
-    navigate(page);
+    console.log(newValue);
   };
 
   return (
@@ -83,10 +100,10 @@ export const TitleTabs = (): JSX.Element => {
           onChange={handleChange}
           aria-label="styled tabs example"
         >
-          <StyledTab label="Home" />
-          {!isAuth && <StyledTab label="Login" />}
-          {!isAuth && <StyledTab label="Register" />}
-          <StyledTab label="Settings" />
+          <StyledTab label={changedLanguage.home} />
+          {!isAuth && <StyledTab label={changedLanguage.login} />}
+          {!isAuth && <StyledTab label={changedLanguage.register} />}
+          <StyledTab label={changedLanguage.settings} />
         </StyledTabs>
         <Box sx={{ p: 2 }} />
       </Box>

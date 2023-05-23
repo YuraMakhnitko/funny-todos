@@ -27,7 +27,7 @@ export const OneTodo: React.FC<Todo> = ({
   const todoStyleRemove: string = "todo__item-remove";
   const [todoAnim, setTodoAnim] = useState<boolean>(false);
 
-  const { volume } = useSelector((state: RootState) => state.sounds);
+  const volume = useSelector((state: RootState) => state.settings.soundsVolume);
   console.log(volume);
 
   const [completedTodoPlay] = useSound(sounds.comlete, { volume });

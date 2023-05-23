@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import listsTodosReducer from "./lists/slice";
-import soundsReduser from "./sounds/slice";
+import soundsReduser from "./settings/slice";
 
 export const store = configureStore({
   reducer: {
     listsTodos: listsTodosReducer,
-    sounds: soundsReduser,
+    settings: soundsReduser,
   },
 });
 

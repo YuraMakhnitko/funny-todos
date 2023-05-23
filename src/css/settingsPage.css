@@ -19,6 +19,10 @@
 }
 
 .todo-settings__language-box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
   margin: 5px 0px;
 }
 
@@ -30,6 +34,8 @@
 .todo-settings__sounds-box {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
   width: 100%;
   gap: 30px;
 }
