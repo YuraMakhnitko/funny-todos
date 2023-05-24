@@ -2,14 +2,18 @@ import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
 
 import { UserSubmitForm } from "../settings/types";
 import { LoginValidationSchema } from "../settings/validations";
 import { registerContentText } from "./languageSettings";
+import { setAuth } from "../redux/auth/slice";
 
 export const Login: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -18,7 +22,6 @@ export const Login: React.FC = (): JSX.Element => {
 
   const { language } = useSelector((state: RootState) => state.settings);
 
-  // console.log(errors);
   const [changedLanguage, setChangedLanguage] = useState(
     registerContentText.en
   );
@@ -33,6 +36,8 @@ export const Login: React.FC = (): JSX.Element => {
   }, [language]);
 
   const onSubmit = (values: FieldValues): void => {
+    dispatch(setAuth(true));
+    navigate("/");
     console.log(values);
     console.log("hi");
   };

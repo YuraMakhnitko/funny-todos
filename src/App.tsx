@@ -21,9 +21,9 @@ const App: React.FC = () => {
         <TitleTabs />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </div>
     </div>

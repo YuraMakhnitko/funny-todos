@@ -14,29 +14,48 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { settingsContentText } from "../pages/languageSettings";
 
 import { useScreenSize } from "../hooks/useScreenSize";
-import { tabStyle, tabsStyle, pages } from "./types";
+import { tabStyle, tabsStyle } from "./types";
 
 export const TitleTabs = (): JSX.Element => {
+  const pagePath = window.location.pathname;
+  const navigate = useNavigate();
+
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
   const { language } = useSelector((state: RootState) => state.settings);
   const [value, setValue] = React.useState(0);
+  const [confirmPath, setConfirmPath] = useState("/");
   const [changedLanguage, setChangedLanguage] = useState(
     settingsContentText.en
   );
+
+  useEffect(() => {
+    if (pagePath !== confirmPath) {
+      setValue(0);
+    }
+  }, [pagePath]);
 
   const screeSize = useScreenSize();
 
   const tabHomeIcon =
     screeSize.width > 767.98 ? "" : <HouseIcon fontSize="medium" />;
+
   const tabLoginIcon =
     screeSize.width > 767.98 ? "" : <ExitToAppIcon fontSize="medium" />;
+
   const tabRegIcon =
     screeSize.width > 767.98 ? "" : <AppRegistrationIcon fontSize="medium" />;
+
   const tabSettingsIcon =
     screeSize.width > 767.98 ? "" : <SettingsIcon fontSize="medium" />;
+
   const tabHomeLabel = screeSize.width > 767.98 ? changedLanguage.home : null;
-  const tabRegLabel = screeSize.width > 767.98 ? changedLanguage.login : null;
-  const tabLoginLabel =
+
+  const tabLoginLabel = screeSize.width > 767.98 ? changedLanguage.login : null;
+
+  const tabRegLabel =
     screeSize.width > 767.98 ? changedLanguage.register : null;
+
   const tabSettingsLabel =
     screeSize.width > 767.98 ? changedLanguage.settings : null;
 
@@ -49,14 +68,14 @@ export const TitleTabs = (): JSX.Element => {
     }
   }, [language, value]);
 
-  const navigate = useNavigate();
-
-  const isAuth: Boolean = false;
+  console.log(pagePath, "pagePath");
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    navigate(pages[newValue]);
+    const path = event.currentTarget.id;
+    setConfirmPath(path);
+    navigate(path);
     setValue(newValue);
-    console.log(newValue);
+    // console.log(newValue);
   };
 
   return (
@@ -69,14 +88,29 @@ export const TitleTabs = (): JSX.Element => {
           centered
           sx={tabsStyle}
         >
-          <Tab icon={tabHomeIcon} label={tabHomeLabel} sx={tabStyle} />
+          <Tab id="/" icon={tabHomeIcon} label={tabHomeLabel} sx={tabStyle} />
           {!isAuth && (
-            <Tab icon={tabLoginIcon} label={tabLoginLabel} sx={tabStyle} />
+            <Tab
+              id="/login"
+              icon={tabLoginIcon}
+              label={tabLoginLabel}
+              sx={tabStyle}
+            />
           )}
           {!isAuth && (
-            <Tab icon={tabRegIcon} label={tabRegLabel} sx={tabStyle} />
+            <Tab
+              id="/register"
+              icon={tabRegIcon}
+              label={tabRegLabel}
+              sx={tabStyle}
+            />
           )}
-          <Tab icon={tabSettingsIcon} label={tabSettingsLabel} sx={tabStyle} />
+          <Tab
+            id="/settings"
+            icon={tabSettingsIcon}
+            label={tabSettingsLabel}
+            sx={tabStyle}
+          />
         </Tabs>
         <Box sx={{ p: 2 }} />
       </Box>

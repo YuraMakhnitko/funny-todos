@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -11,26 +12,37 @@ import { useDispatch, useSelector } from "react-redux";
 import { setVolume, setLanguage } from "../redux/settings/slice";
 import { RootState } from "../redux/store";
 import { Language } from "../redux/types";
+import { setAuth } from "../redux/auth/slice";
 
 export const Settings: React.FC = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+
   const { soundsVolume, language } = useSelector(
     (state: RootState) => state.settings
   );
   const dispatch = useDispatch();
+
   const enLang = language === "en" ? { color: "#fff" } : { color: "#61dafb" };
   const uaLang = language !== "en" ? { color: "#fff" } : { color: "#61dafb" };
 
-  const handleChangeVolume = (event: Event, newValue: number | number[]) => {
+  const handleChangeVolume = (
+    event: Event,
+    newValue: number | number[]
+  ): void => {
     const volumeValue = (newValue as number) / 100;
     dispatch(setVolume(volumeValue));
   };
 
-  const handleChangeLanguage = (event: React.SyntheticEvent) => {
+  const handleChangeLanguage = (event: React.SyntheticEvent): void => {
     console.log(event.currentTarget.id, "handleChangeLang");
     dispatch(setLanguage(event.currentTarget.id));
   };
-  const isAuth: Boolean = false;
 
+  const onLogoutClick = (): void => {
+    dispatch(setAuth(false));
+    navigate("/");
+  };
   return (
     <div className="todo-settings">
       {isAuth && (
@@ -97,7 +109,11 @@ export const Settings: React.FC = (): JSX.Element => {
       </div>
       <div className="todo-settings__devider"></div>
 
-      {isAuth && <button className="todo__button-logout">Logout</button>}
+      {isAuth && (
+        <button className="todo__button-logout" onClick={onLogoutClick}>
+          Logout
+        </button>
+      )}
     </div>
   );
 };
