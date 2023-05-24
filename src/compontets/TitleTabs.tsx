@@ -14,25 +14,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { settingsContentText } from "../pages/languageSettings";
 
 import { useScreenSize } from "../hooks/useScreenSize";
-
-const tabStyle = {
-  minWidth: "70px",
-  color: "#61dafb",
-  "&.Mui-selected": {
-    color: "#fff",
-  },
-};
-
-const tabsStyle = {
-  "& .css-heg063-MuiTabs-flexContainer": {
-    justifyContent: "space-between",
-  },
-  "& .css-1aquho2-MuiTabs-indicator": {
-    backgroundColor: "#61dafb",
-    height: "1px",
-  },
-};
-const pages: string[] = ["/", "/login", "/register", "/settings"];
+import { tabStyle, tabsStyle, pages } from "./types";
 
 export const TitleTabs = (): JSX.Element => {
   const { language } = useSelector((state: RootState) => state.settings);
@@ -85,8 +67,6 @@ export const TitleTabs = (): JSX.Element => {
           onChange={handleChange}
           aria-label="styled tabs example"
           centered
-          // variant="scrollable"
-          // scrollButtons="auto"
           sx={tabsStyle}
         >
           <Tab icon={tabHomeIcon} label={tabHomeLabel} sx={tabStyle} />
