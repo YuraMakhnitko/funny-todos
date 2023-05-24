@@ -6,7 +6,7 @@ import "./css/App.css";
 
 import { Home, Register, Login, Settings } from "./pages/index";
 
-import { AnimatedTitle, TitleTabs } from "./compontets/index";
+import { AnimatedTitle, TitleTabs } from "./components/index";
 
 const App: React.FC = () => {
   const navigate = useNavigate();
