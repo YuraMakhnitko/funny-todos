@@ -1,15 +1,15 @@
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../redux/store";
+import { setAuth } from "../redux/auth/slice";
 
 import { UserSubmitForm } from "../settings/types";
 import { LoginValidationSchema } from "../settings/validations";
 import { registerContentText } from "./languageSettings";
-import { setAuth } from "../redux/auth/slice";
 
 export const Login: React.FC = (): JSX.Element => {
   const navigate = useNavigate();

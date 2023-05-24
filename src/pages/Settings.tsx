@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
@@ -43,17 +43,23 @@ export const Settings: React.FC = (): JSX.Element => {
     dispatch(setAuth(false));
     navigate("/");
   };
+
   return (
     <div className="todo-settings">
-      {isAuth && (
+      {isAuth && language === Language.en && (
         <p className="todo-settings__text">
-          User Name: <span>Rikel</span>
+          Name: <span>Rikel</span>
+        </p>
+      )}
+      {isAuth && language === Language.ua && (
+        <p className="todo-settings__text">
+          Ім'я: <span>Rikel</span>
         </p>
       )}
       <div className="todo-settings__devider"></div>
       {isAuth && (
         <p className="todo-settings__text">
-          User Email: <span>Rikel@rik.rik</span>
+          Email: <span>Rikel@rik.rik</span>
         </p>
       )}
       <div className="todo-settings__devider"></div>
@@ -111,7 +117,7 @@ export const Settings: React.FC = (): JSX.Element => {
 
       {isAuth && (
         <button className="todo__button-logout" onClick={onLogoutClick}>
-          Logout
+          {language === Language.en ? "Logout" : "Вийти"}
         </button>
       )}
     </div>

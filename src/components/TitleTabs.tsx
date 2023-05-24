@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,6 +10,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SettingsIcon from "@mui/icons-material/Settings";
 
+import { RootState } from "../redux/store";
 import { settingsContentText } from "../pages/languageSettings";
 
 import { useScreenSize } from "../hooks/useScreenSize";
@@ -38,16 +38,16 @@ export const TitleTabs = (): JSX.Element => {
   const screeSize = useScreenSize();
 
   const tabHomeIcon =
-    screeSize.width > 767.98 ? "" : <HouseIcon fontSize="medium" />;
+    screeSize.width > 767.98 ? "" : <HouseIcon fontSize="large" />;
 
   const tabLoginIcon =
-    screeSize.width > 767.98 ? "" : <ExitToAppIcon fontSize="medium" />;
+    screeSize.width > 767.98 ? "" : <ExitToAppIcon fontSize="large" />;
 
   const tabRegIcon =
-    screeSize.width > 767.98 ? "" : <AppRegistrationIcon fontSize="medium" />;
+    screeSize.width > 767.98 ? "" : <AppRegistrationIcon fontSize="large" />;
 
   const tabSettingsIcon =
-    screeSize.width > 767.98 ? "" : <SettingsIcon fontSize="medium" />;
+    screeSize.width > 767.98 ? "" : <SettingsIcon fontSize="large" />;
 
   const tabHomeLabel = screeSize.width > 767.98 ? changedLanguage.home : null;
 
@@ -75,7 +75,6 @@ export const TitleTabs = (): JSX.Element => {
     setConfirmPath(path);
     navigate(path);
     setValue(newValue);
-    // console.log(newValue);
   };
 
   return (
