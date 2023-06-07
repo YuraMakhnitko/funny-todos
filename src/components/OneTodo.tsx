@@ -45,7 +45,6 @@ export const OneTodo: React.FC<Todo> = ({
   const removeTodoHandler = (): void => {
     if (isAuth) {
       dispatch(fetchRemoveTodo(data._id));
-      console.log(data._id, "todo id");
     }
     removeTodoSound();
     setTodoAnim(!todoAnim);
@@ -62,7 +61,6 @@ export const OneTodo: React.FC<Todo> = ({
       };
 
       dispatch(fetchUpdateTodo(params));
-      console.log(data._id, "todo id");
     }
     data.completed = !data.completed;
     dispatch(comleteOneTodo(data));

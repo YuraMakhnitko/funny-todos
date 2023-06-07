@@ -31,7 +31,6 @@ export const fetchUpdateTodo = createAsyncThunk(
   "/updatetodo/:todoId",
   async (params: UpdateTodoProps) => {
     const { _id, completed } = params;
-    console.log(completed);
     const { data } = await axios.patch(`/updatetodo/${_id}`, { completed });
     return data;
   }

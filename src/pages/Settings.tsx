@@ -25,7 +25,6 @@ export const Settings: React.FC = (): JSX.Element => {
   const { isAuth, user } = useSelector((state: RootState) => state.auth);
   const { language } = useSelector((state: RootState) => state.settings);
   const volume = useSelector((state: RootState) => state.settings.soundsVolume);
-  console.log(user);
 
   const [toggleSound] = useSound(sounds.toggle, { volume });
   const [submitSound] = useSound(sounds.submitSound, { volume });
